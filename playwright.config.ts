@@ -12,7 +12,7 @@ const extraHTTPHeaders = bypassSecret
 export default defineConfig({
   testDir: './tests/e2e',
   retries: isCI ? 2 : 0,
-  reporter: isCI ? 'github' : 'list',
+  reporter: isCI ? [['github'], ['html', { open: 'never' }]] : 'list',
   use: {
     baseURL: process.env.PLAYWRIGHT_BASE_URL ?? 'http://localhost:3000',
     trace: 'on-first-retry',

@@ -172,6 +172,36 @@ Wait 60s → Smoke test (Playwright against PROD_URL)
 
 Runs only `tests/e2e/home.spec.ts` against your production URL to confirm the deploy is healthy.
 
+### Playwright report artifact
+
+After every CI run (pass or fail), the full HTML report is uploaded as a GitHub Actions artifact named **`playwright-report`** and kept for 7 days.
+
+To view it:
+1. Go to the Actions run on GitHub → scroll to **Artifacts** → download `playwright-report`
+2. Unzip and run:
+```bash
+npx playwright show-report path/to/playwright-report
+```
+
+The report includes pass/fail per test, step-by-step traces on retry, screenshots on failure, and timing. Most useful when a test fails in CI but passes locally.
+
+---
+
+## Playwright UI — local development
+
+Two modes for running tests locally:
+
+**Interactive UI** (best for writing new tests — watch tests run in real time, inspect each step):
+```bash
+npm run test:e2e:ui
+```
+
+**HTML report** (review results after a run):
+```bash
+npm run test:e2e
+npx playwright show-report
+```
+
 ---
 
 ## Scripts
@@ -181,5 +211,5 @@ Runs only `tests/e2e/home.spec.ts` against your production URL to confirm the de
 | `npm test` | Run unit tests (Vitest) |
 | `npm run test:watch` | Unit tests in watch mode |
 | `npm run test:e2e` | Run Playwright e2e tests |
-| `npm run test:e2e:ui` | Playwright UI mode |
+| `npm run test:e2e:ui` | Playwright interactive UI mode |
 | `npm run type-check` | TypeScript check without emit |
